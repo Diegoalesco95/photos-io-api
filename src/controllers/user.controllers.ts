@@ -67,3 +67,9 @@ export async function updateUser(req: Request | any, res: Response) {
 		res.status(status).json({ message });
 	}
 }
+
+export async function getUser(req: Request | any, res: Response) {
+	const { user } = req;
+
+	res.status(200).json({ user });
+}

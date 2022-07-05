@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+import { Response } from '@interfaces/response.interface';
 
 export interface IUser {
 	avatar: string;
@@ -18,11 +19,6 @@ export interface IUserDB extends Document {
 }
 
 export interface IRequestUser extends IUser {}
-
-export interface Response {
-	status: number;
-	message?: string;
-}
 
 export interface IUserResponse extends Response {
 	response?: IUser;
