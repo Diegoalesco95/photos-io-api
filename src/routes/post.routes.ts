@@ -14,6 +14,6 @@ const postRoutes = Router();
 postRoutes.get('/', getPosts);
 postRoutes.post('/', verifyToken, createPost);
 postRoutes.post('/upload', verifyToken, uploadFile);
-postRoutes.get('/image/:userId/:imgId', verifyToken, getImage);
+postRoutes.get('/image/:userId/:imgId', getImage);
 
 export default postRoutes;
