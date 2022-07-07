@@ -26,7 +26,6 @@ export async function createUser(req: Request, res: Response) {
 
 		res.status(status).json({
 			token,
-			user: response,
 		});
 	} else {
 		res.status(status).json({ message });
@@ -35,17 +34,21 @@ export async function createUser(req: Request, res: Response) {
 
 export async function login(req: Request, res: Response) {
 	const { email, password } = req.body;
-	const { response, status, message } = await userService.findByEmail(email);
+	let { response, status, message } = await userService.findByEmail(email);
 
-	if (status === 200 && response?.comparePassword(password)) {
-		const user = {
-			avatar: response.avatar,
-			id: response._id,
-			email: response.email,
-			name: response.name,
-		};
-		const token = Token.getJwtToken(user);
-		res.status(status).json({ token, user });
+	if (status === 200) {
+		if (response?.comparePassword(password)) {
+			const user = {
+				avatar: response.avatar,
+				id: response._id,
+				email: response.email,
+				name: response.name,
+			};
+			const token = Token.getJwtToken(user);
+			res.status(status).json({ token });
+		} else {
+			res.status(401).json({ message: 'Invalid email or password' });
+		}
 	} else {
 		res.status(status).json({ message });
 	}
@@ -62,7 +65,13 @@ export async function updateUser(req: Request | any, res: Response) {
 
 	const { response, status, message } = await userService.update(id, newUser);
 	if (status === 200 && response) {
-		res.status(status).json({ response });
+		const token = Token.getJwtToken({
+			avatar: response.avatar,
+			id: response?._id,
+			email: response.email,
+			name: response.name,
+		});
+		res.status(status).json({ token });
 	} else {
 		res.status(status).json({ message });
 	}

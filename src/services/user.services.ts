@@ -28,7 +28,7 @@ class UserService {
 		} catch (err: any) {
 			return {
 				status: 500,
-				message: err.message as string,
+				message: 'User already exists',
 			};
 		}
 	}

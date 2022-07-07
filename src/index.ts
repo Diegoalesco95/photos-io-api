@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import fileUpload from 'express-fileupload';
 
@@ -13,6 +14,13 @@ import postRoutes from '@routes/post.routes';
 const mongoUri = `mongodb+srv://${config.dbUsername}:${config.dbPassword}@${config.dbHost}/${config.dbName}`;
 
 const server = new Server();
+
+server.app.use(
+	cors({
+		origin: true,
+		credentials: true,
+	}),
+);
 
 server.app.use(bodyParser.urlencoded({ extended: true }));
 server.app.use(bodyParser.json());

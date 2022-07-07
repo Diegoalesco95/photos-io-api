@@ -27,7 +27,7 @@ export async function createPost(req: Request | any, res: Response) {
 
 	if (status === 200 && response) {
 		res.status(status).json({
-			response,
+			post: response,
 		});
 	} else {
 		res.status(status).json({ message: messageDB });

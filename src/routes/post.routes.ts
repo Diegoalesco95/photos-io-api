@@ -10,7 +10,8 @@ import {
 
 const postRoutes = Router();
 
-postRoutes.get('/', verifyToken, getPosts);
+// postRoutes.get('/', verifyToken, getPosts);
+postRoutes.get('/', getPosts);
 postRoutes.post('/', verifyToken, createPost);
 postRoutes.post('/upload', verifyToken, uploadFile);
 postRoutes.get('/image/:userId/:imgId', verifyToken, getImage);
